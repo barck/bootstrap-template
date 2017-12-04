@@ -76,34 +76,9 @@ gulp.task('browser-sync', function() { // Создаем таск browser-sync
         server: { // Определяем параметры сервера
             baseDir: 'public' // Директория для сервера - app
         },
-        notify: true // Отключаем уведомления
+        notify: false // Отключаем уведомления
     });
 });
 
 
-
-/*** some ftp stuff ***/
-var ftp_data = {
-    from : [ "public/*/**", "public/**" ],
-    to : "/httpdocs"
-};
-
-function getConn() {
-    gutil.log("Ftp host - " + process.env.ftp_host);
-    gutil.log("Ftp user - " + process.env.ftp_user);
-    gutil.log("Ftp password - " + process.env.ftp_password);
-
-    return ftp.create({
-        host: process.env.ftp_host,
-        user: process.env.ftp_user,
-        pass: process.env.ftp_password
-    });
-}
-
-gulp.task('deploy', function () {
-    var conn = getConn();
-    return gulp.src(ftp_data.from, {base: './public', buffer: false})
-        .pipe(conn.dest(ftp_data.to))
-        .pipe(gutil.noop());
-});
 
