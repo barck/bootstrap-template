@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 
 
 
-gulp.task('default',  ['clean'], function() {
+gulp.task('dev',  ['clean'], function() {
 
     gulp.start(
         'browser-sync', 
@@ -17,7 +17,12 @@ gulp.task('default',  ['clean'], function() {
     // place code for your default task
 });
 
+gulp.task('build',  ['clean'], function() {
 
+    gulp.start(
+        'stylus', 'scripts', 'compile', 'copy');
+    // place code for your default task
+});
 
 gulp.task('scripts', function() {
     return gulp.src('app/js/*.js')
@@ -43,7 +48,8 @@ gulp.task('compile', function () {
     'use strict';
     return gulp.src('app/views/*.twig')
         .pipe(twig())
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest('public'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 
@@ -60,8 +66,8 @@ gulp.task('copy', function () {
         .pipe(gulp.dest('public/img'));
     gulp.src('app/style/fonts/**')
         .pipe(gulp.dest('public/style/fonts'));
-    gulp.src('app/*.php')
-        .pipe(gulp.dest('public'))
+    gulp.src('app/bootstrap/**')
+        .pipe(gulp.dest('public'));
 });
 
 gulp.task('watch', function() {
@@ -69,6 +75,7 @@ gulp.task('watch', function() {
     gulp.watch('app/views/**', ['compile']);
     gulp.watch('app/js/*.js', ['scripts']);  // Наблюдение за другими типами файлов
     gulp.watch('app/img/*', ['copy']);
+    gulp.watch('app/bootstrap/**', ['copy']);
 });
 
 gulp.task('browser-sync', function() { // Создаем таск browser-sync
