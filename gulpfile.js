@@ -55,7 +55,7 @@ gulp.task('compile', function () {
 
 
 gulp.task('clean', function () {
-    return gulp.src('public/img', {read: false})
+    return gulp.src('public/', {read: false})
         .pipe(clean());
 });
 
@@ -67,7 +67,7 @@ gulp.task('copy', function () {
     gulp.src('app/style/fonts/**')
         .pipe(gulp.dest('public/style/fonts'));
     gulp.src('app/bootstrap/**')
-        .pipe(gulp.dest('public'));
+        .pipe(gulp.dest('public/bootstrap'));
 });
 
 gulp.task('watch', function() {
