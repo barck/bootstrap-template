@@ -27,7 +27,8 @@ gulp.task('build',  ['clean'], function() {
 gulp.task('scripts', function() {
     return gulp.src('app/js/*.js')
         .pipe(concat('scripts.js'))
-        .pipe(gulp.dest('public/js/'));
+        .pipe(gulp.dest('public/js/'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 
@@ -63,11 +64,14 @@ gulp.task('clean', function () {
 
 gulp.task('copy', function () {
     gulp.src('app/img/**')
-        .pipe(gulp.dest('public/img'));
+        .pipe(gulp.dest('public/img'))
+        .pipe(browserSync.reload({stream: true}));
     gulp.src('app/style/fonts/**')
-        .pipe(gulp.dest('public/style/fonts'));
+        .pipe(gulp.dest('public/style/fonts'))
+        .pipe(browserSync.reload({stream: true}));
     gulp.src('app/bootstrap/**')
-        .pipe(gulp.dest('public/bootstrap'));
+        .pipe(gulp.dest('public/bootstrap'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task('watch', function() {
